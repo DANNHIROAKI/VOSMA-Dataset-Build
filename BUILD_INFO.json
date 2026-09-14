@@ -1,0 +1,23 @@
+{
+  "release": "v0.1.0",
+  "available_datasets": [
+    "mot20",
+    "coco_sama"
+  ],
+  "pending_datasets": {
+    "doclaynet": "Original precedence-1 human annotations unavailable in the pinned official source"
+  },
+  "environment": {
+    "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:27:36) [GCC 11.2.0]",
+    "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.31",
+    "machine": "x86_64",
+    "packages": {
+      "numpy": "1.26.4",
+      "pyarrow": "16.1.0",
+      "requests": "2.33.1",
+      "matplotlib": "3.9.2",
+      "huggingface_hub": "1.11.0"
+    }
+  },
+  "sources_lock_sha256": "4d153e0c2e6abee9d20ecd59710a3b37b9672e068fb995e831259244a897cb19"
+}

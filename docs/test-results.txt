@@ -1,0 +1,9 @@
+doclaynet {'r1': 1, 'r2': 1} groups 1
+.....toy {'r1': 3, 'r2': 2} groups 3
+....toy {'r1': 2, 'r2': 2} groups 2
+toy validated 2 2 overlaps 2
+.
+----------------------------------------------------------------------
+Ran 10 tests in 0.707s
+
+OK
