@@ -1,10 +1,10 @@
 # VOSMA Real Rectangle Datasets
 
-Construction pipeline for three real-data rectangle relations for area-weighted and IoU-weighted spatial join sampling. **Release v0.1.0 contains two completed datasets: MOT20 and COCO/Sama-COCO. DocLayNet is pending because the official source snapshot lacks the required second annotation layer.** Each retained source annotation becomes one rectangle with unit record weight. This release contains integer arrays and provenance metadata; images, segmentation masks, algorithm indexes, and materialized join pairs are not included.
+Construction pipeline for three real-data rectangle relations for area-weighted and IoU-weighted spatial join sampling. **Release v0.2.0 contains completed DocLayNet, MOT20, and COCO/Sama-COCO datasets.** Each retained source annotation or exported prediction becomes one rectangle with unit record weight. This release contains integer arrays and provenance metadata; images, segmentation masks, algorithm indexes, and materialized join pairs are not included.
 
 | Dataset directory | R1 | R2 | Retained R1 records | Retained R2 records | Groups |
 |---|---|---|---:|---:|---:|
-| `doclaynet` | Original annotation precedence 0 | Original annotation precedence 1 | Pending | Pending | Pending |
+| `doclaynet` | Official test-page ground truth | Fixed Aryn model predictions | 66,531 | 50,084 | 4,999 |
 | `mot20` | Valid pedestrian ground truth | Official detections | 1,134,614 | 661,143 | 8,931 |
 | `coco_sama` | COCO 2017 non-crowd instances | Sama-COCO non-crowd instances | 886,282 | 1,068,028 | 386,072 |
 
@@ -12,10 +12,11 @@ Counts refer to this processed release. Empty sides and groups remain represente
 
 ## Release status
 
-The official DocLayNet Core snapshot has 80,863 physical pages and 1,107,470 annotation records, **all with precedence 0**. No precedence-1 or precedence-2 records occur in any split. It therefore cannot produce the intended paired annotation dataset. `doclaynet/source-audit.json` contains the complete counts, and `doclaynet/README.md` explains the evidence. This release does not duplicate the first layer, synthesize annotations, or substitute PDF text cells. The DocLayNet builder fails explicitly when the required layers are absent.
+All 4,999 selected official DocLayNet test pages completed fixed-model inference and the independent image/provenance audit. The three datasets passed record-level geometry and group-isolation validation.
 
 | Completed dataset | Positive-area record pairs | Groups with positive mass | Groups with zero mass |
 |---|---:|---:|---:|
+| DocLayNet | 52,670 | 4,876 | 123 |
 | MOT20 | 3,176,148 | 8,931 | 0 |
 | COCO/Sama-COCO | 1,508,091 | 322,274 | 63,798 |
 
@@ -25,7 +26,11 @@ Builder: [DANNHIROAKI/VOSMA-Dataset-Build](https://github.com/DANNHIROAKI/VOSMA-
 
 ## Source selection and grouping
 
-**DocLayNet (pending).** The intended source is the original [DocLayNet 1.0.0 Core archive](https://codait-cos-dax.s3.us.cloud-object-storage.appdomain.cloud/dax-doclaynet/1.0.0/DocLayNet_core.zip), using `COCO/train.json`, `COCO/val.json`, and `COCO/test.json`. The physical page key is `(doc_category, collection, doc_name, page_no)`. Image file identity and declared dimensions are checked before pairing; unresolved identity or layer conflicts stop the build. Each annotation's own `precedence` selects its side: 0 for R1 and 1 for R2. Precedence 2 is counted but excluded from the primary relations. Image-level precedence is preserved as metadata and does not replace annotation-level precedence. Pages originally containing both selected layers remain groups even if geometry filtering empties a side. Categories are retained in metadata, and category disagreements remain in the page-level comparison. See the [official schema](https://github.com/DS4SD/DocLayNet#coco-annotations).
+**DocLayNet.** R1 contains all original precedence-0 ground-truth boxes on all 4,999 official test pages from the [DocLayNet 1.0.0 Core archive](https://codait-cos-dax.s3.us.cloud-object-storage.appdomain.cloud/dax-doclaynet/1.0.0/DocLayNet_core.zip), using `COCO/test.json`. R2 contains the exported predictions of the fixed [Aryn/deformable-detr-DocLayNet model](https://huggingface.co/Aryn/deformable-detr-DocLayNet/tree/d5503a90ae08dd43565de6984a5dd7924cad2400). A group is `(split, source_image_id)`. The physical key `(doc_category, collection, doc_name, page_no)` is unique across selected pages; official PNG filename, dimensions, source identity, and per-image bytes are checked. All selected pages remain groups, including successful pages with zero predictions. Missing, failed, or duplicate inference pages stop the build. All classes remain in their page groups, so cross-class intersections are included. Predictions are not matched to GT or selected using GT.
+
+The released model run uses CPU float32, batch size 1, and four PyTorch threads per worker. It began with eight workers and resumed with sixteen workers under the same frozen numerical protocol; completed page results were reused only after protocol and image-hash checks. The reproduction command uses sixteen workers. The fixed processor produces `[1,3,800,800]` model inputs and restores predicted `xyxy` boxes to each original PNG's dimensions. Native postprocessing takes the top 100 scores over the flattened 200-query × 12-class sigmoid output. The mutually exclusive exclusions are nonfinite scores, finite scores at most 0.7, and remaining class-0 (`N/A`) candidates, in that order. All remaining records are exported. There is no NMS, clipping, deduplication, GT-based threshold tuning, or class-pair filtering. Original top-100 rank, query index, label, score, and PNG-coordinate endpoints are retained in metadata. Geometry exclusions are applied subsequently by the common dataset conversion.
+
+The checkpoint revision is `d5503a90ae08dd43565de6984a5dd7924cad2400` and its model-card license is Apache-2.0. The model's training overlap with these DocLayNet test pages is **unknown**. These relations measure spatial-join sampling on GT and frozen predictions; they do not establish an unseen-test-set detection result. Model files, page selection, protocol, predictions, and image hashes are recorded in provenance; `doclaynet/inference-audit.json` reports the independent all-page PNG, provenance, and prediction-accounting audit. See `doclaynet/README.md` for the completed counts and hash links.
 
 **MOT20.** The source is [MOT20Labels.zip](https://motchallenge.net/data/MOT20Labels.zip). Only training sequences `MOT20-01`, `MOT20-02`, `MOT20-03`, and `MOT20-05` are used. A group is `(sequence, frame)`; all 8,931 frames are retained. R1 keeps GT rows with `valid=1` and `class=1`, without a visibility threshold. R2 keeps official detections with a finite score and valid geometry, without a score threshold. Detection scores, track IDs, and visibility are metadata; they never become sampling weights. The original MOT coordinate convention is preserved before quantization, with no one-pixel origin adjustment. [Official benchmark and downloads](https://motchallenge.net/data/MOT20/).
 
@@ -40,17 +45,17 @@ Q(z) = nearest integer to 1000*z, with exact ties rounded to even
 (x0,y0,x1,y1) = (Q(x), Q(y), Q(x+w), Q(y+h))
 ```
 
-The implementation parses JSON decimals as `Decimal` and performs endpoint arithmetic as exact rational arithmetic. It does not pass through float32. Rectangles are half-open: `[x0,x1) × [y0,y1)`. A join pair requires strictly positive intersection width and height; boundary contact alone is not an intersection.
+Raw annotation decimals are parsed as `Decimal`, and source endpoint arithmetic is exact. The DocLayNet model itself intentionally runs in float32. Its restored PNG-coordinate `xyxy` outputs are serialized with Python float round-trip precision, read back as exact decimals, and converted to `xywh` with exact endpoint differences before Q1000 quantization. Dataset conversion performs no additional float32 coercion after the model output. Rectangles are half-open: `[x0,x1) × [y0,y1)`. A join pair requires strictly positive intersection width and height; boundary contact alone is not an intersection.
 
-Malformed or non-finite boxes, nonpositive source widths/heights, and rectangles that become degenerate after quantization are excluded and counted. Finite negative coordinates and boxes outside the declared image bounds are retained. Coordinates are not clipped or resized. Representability failures stop the build rather than silently wrapping integers.
+Malformed or non-finite boxes, nonpositive source widths/heights, and rectangles that become degenerate after quantization are excluded and counted. Finite negative coordinates and boxes outside the declared image bounds are retained. Coordinates are not clipped or resized during dataset conversion. Representability failures stop the build rather than silently wrapping integers.
 
 After quantization, each group receives one shared integer translation for both R1 and R2. Its minimum retained y-coordinate becomes 1. Groups occupy disjoint x intervals with a one-unit gap, using the union of retained rectangle extents on both sides. The translation and local bounds are stored in `groups.parquet`. Translation preserves the quantized within-group geometry, areas, and IoUs while preventing intersections between different groups. Quantization itself may change the original continuous geometry slightly.
 
-Every output `weight` is 1. Area sampling uses the quantized intersection area; IoU sampling uses intersection area divided by union area. No object matching, IoU threshold, NMS, deduplication, bbox merging, or annotation-count balancing is performed. Equal numbers of samples per group do not implement global mass-weighted sampling. Algorithm preprocessing remains part of measured algorithm cost. Int64 coordinate storage does not guarantee that area or cumulative-mass intermediates fit int64. Equal rectangles remain distinct records when they originate from distinct source annotations.
+Every output `weight` is 1. Area sampling uses the quantized intersection area; IoU sampling uses intersection area divided by union area. No object matching, IoU threshold, NMS, deduplication, bbox merging, or annotation-count balancing is performed. Equal numbers of samples per group do not implement global mass-weighted sampling. Algorithm preprocessing remains part of measured algorithm cost. Int64 coordinate storage does not guarantee that area or cumulative-mass intermediates fit int64. Equal rectangles remain distinct records when they originate from distinct source annotation or prediction records.
 
 ## Files and schema
 
-Each completed dataset directory contains the following files. The pending `doclaynet/` directory contains status, source audits, licenses, and provenance only; it has no runtime arrays.
+Each of the three completed dataset directories contains the following files.
 
 | File | Contents |
 |---|---|
@@ -85,9 +90,9 @@ import numpy as np
 import pyarrow.parquet as pq
 from huggingface_hub import snapshot_download, HfApi
 
-revision = HfApi().dataset_info("DannHiroaki/VOSMA-Dataset", revision="v0.1.0").sha
+revision = HfApi().dataset_info("DannHiroaki/VOSMA-Dataset", revision="v0.2.0").sha
 print("Record this immutable revision with your experiment:", revision)
-dataset = "mot20"  # also available: coco_sama; doclaynet is pending
+dataset = "doclaynet"  # also available: mot20, coco_sama
 root = Path(snapshot_download(
     repo_id="DannHiroaki/VOSMA-Dataset",
     repo_type="dataset",
@@ -109,7 +114,7 @@ b = r2[g["r2_start"]:g["r2_start"] + g["r2_count"]]
 print(r1.shape, r2.shape, groups.num_rows, a.shape, b.shape)
 ```
 
-The arrays can be used directly as benchmark inputs. Keep download, source conversion, and file-loading costs separate from algorithm measurements, and report the release revision and requested sample count with results.
+The arrays can be used directly as benchmark inputs. Keep download, model inference, source conversion, and file-loading costs separate from algorithm measurements. Algorithm preprocessing remains part of measured algorithm cost. Report the release revision and requested sample count with results.
 
 ## Rebuild from original annotations
 
@@ -117,15 +122,24 @@ From the builder repository root, with Python 3.12 and a C++17 compiler availabl
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python fetch_sources.py --raw-root work/raw --sources mot20 coco2017 sama_train sama_val
-.venv/bin/python build.py --raw-root work/raw --output-root outputs/data --datasets mot20 coco_sama
+.venv/bin/python -m pip install -r requirements.txt -r requirements-inference.txt
+.venv/bin/python fetch_sources.py --raw-root raw --sources doclaynet mot20 coco2017 sama_train sama_val
+.venv/bin/python fetch_doclaynet_model.py --output-root runtime/doclaynet
+.venv/bin/python fetch_doclaynet_images.py --raw-root raw --output-root runtime/doclaynet --splits test --workers 16
+.venv/bin/python infer_doclaynet.py --pages runtime/doclaynet/pages.json --images runtime/doclaynet/images --model runtime/doclaynet/model --model-manifest runtime/doclaynet/model-manifest.json --output-root runtime/doclaynet/predictions --workers 16 --threads 4
+.venv/bin/python build.py --raw-root raw --output-root data --datasets doclaynet mot20 coco_sama --doc-pages runtime/doclaynet/pages.json --doc-predictions runtime/doclaynet/predictions/predictions.jsonl.gz --doc-protocol runtime/doclaynet/predictions/protocol.json
 .venv/bin/python -m unittest discover -s tests
-.venv/bin/python validate.py --data-root outputs/data --work-root work/validation --datasets mot20 coco_sama
-.venv/bin/python independent_coco_audit.py --raw-root work/raw --data-root outputs/data --output outputs/data/coco_sama/independent-audit.json
+.venv/bin/python validate.py --data-root data --work-root runtime/validation --datasets doclaynet mot20 coco_sama
+.venv/bin/python audit_doclaynet_inference.py --pages runtime/doclaynet/pages.json --images-manifest runtime/doclaynet/images-manifest.json --predictions runtime/doclaynet/predictions/predictions.jsonl.gz --protocol runtime/doclaynet/predictions/protocol.json --images runtime/doclaynet/images --output data/doclaynet/inference-audit.json
+.venv/bin/python audit_doclaynet_relations.py --raw-root raw --data-root data --pages runtime/doclaynet/pages.json --predictions runtime/doclaynet/predictions/predictions.jsonl.gz --output data/doclaynet/independent-audit.json
+.venv/bin/python independent_coco_audit.py --raw-root raw --data-root data --output data/coco_sama/independent-audit.json
 ```
 
-The fetcher uses HTTP byte ranges and ZIP/ZIP64 member extraction to retrieve annotation files without downloading the image collections. It enforces `sources.lock.json`, checks archive ETag/size and the exact selected member set, verifies ZIP CRC32 when reusing files, and pins each extracted member's SHA-256; the builder verifies source member hashes before conversion. The validator checks every output record, relation IDs, group slices, unit weights, translations, and separation between groups. It also counts positive-area overlaps without saving join pairs. Spot-check distributions are diagnostics, not estimates of the full pair distribution.
+Retain the independent image/protocol/prediction audit as `doclaynet/inference-audit.json` and the full relation audit as `doclaynet/independent-audit.json`. Both image fetching and inference began with eight workers and resumed with sixteen; inference kept four PyTorch threads per worker. Construction concurrency is recorded separately from the frozen numerical protocol. The original construction's `run-history.json` records the complete run; the inference summary's elapsed time covers only its resumed phase.
+
+The annotation fetcher uses HTTP byte ranges and ZIP/ZIP64 member extraction. It enforces `sources.lock.json`, checks archive ETag/size and the exact selected member set, verifies ZIP CRC32 when reusing files, and pins each extracted member's SHA-256. The DocLayNet image fetcher additionally obtains only the selected official test PNGs needed for model inference. These images are build inputs and are not redistributed in the processed dataset. Model files are pinned by revision, size, and SHA-256; inference verifies the model manifest before loading.
+
+The adapter checks each result's exact protocol SHA-256, the protocol's page-manifest SHA-256, fixed postprocessing, page completeness, dimensions, and the original category map. The independent inference audit reads all selected PNG bytes and checks image hashes, CRCs, dimensions, prediction identity, and provenance. The separate relation audit checks full record membership against the selected original GT and frozen predictions, including geometry filtering, metadata, and group assignment. The validator checks output records, IDs, group slices, unit weights, common translations, actual slab containment, and group separation, and counts positive-area overlaps without saving join pairs. Geometric spot checks are diagnostics, not full-pair population estimates. The independent inference audit checks the protocol's recorded model manifest; it does not itself reread checkpoint weights.
 
 ## Licenses
 
@@ -134,6 +148,7 @@ Licenses apply to each dataset portion separately; this collection does not repl
 | Portion | Source license | Conditions carried with this release |
 |---|---|---|
 | DocLayNet-derived data | [CDLA-Permissive-1.0](https://github.com/DS4SD/DocLayNet/blob/main/LICENSE) | Preserve source attribution and license access; identify the modifications described above. |
+| Aryn source model | [Apache-2.0 model card](https://huggingface.co/Aryn/deformable-detr-DocLayNet/blob/d5503a90ae08dd43565de6984a5dd7924cad2400/README.md) | Model weights are fetched as build inputs; their pinned revision and license remain recorded in provenance. |
 | MOT20-derived data | [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/) | Attribution, noncommercial use, and ShareAlike conditions apply. |
 | COCO/Sama-COCO-derived annotation data | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Preserve attribution and license access, and indicate modifications. |
 
@@ -146,8 +161,8 @@ Credit the original DocLayNet, MOT20, COCO, and Sama-COCO creators when using th
 - Lin et al. (2014), [Microsoft COCO: Common Objects in Context](https://arxiv.org/abs/1405.0312).
 - Zimmermann et al. (2023), [Benchmarking a Benchmark: How Reliable is MS-COCO?](https://arxiv.org/abs/2311.02709).
 
-Also identify this dataset repository and the exact release commit SHA in experiment reports. Repeated annotation, detection versus GT, and annotation-version comparisons have different provenance and should be reported separately.
+Also identify this dataset repository and the exact release commit SHA in experiment reports. Model predictions versus GT, detection versus GT, and annotation-version comparisons have different provenance and should be reported separately.
 
 ## Software license
 
-The construction software is MIT-licensed. The dataset-specific licenses remain applicable to source and derived data. See `LICENSE` and `licenses/`. Install `requirements-hub.txt` for the optional Hub loader.
+The construction software is MIT-licensed. The dataset-specific licenses remain applicable to source and derived data. See `LICENSE` and `licenses/`. Use `requirements-hub.txt` in a separate download-only environment. The inference environment already includes its compatible pinned Hub client; do not upgrade it to the loader-only pin.

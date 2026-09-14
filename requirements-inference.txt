@@ -1,0 +1,15 @@
+# Install with: python -m pip install -r requirements-inference.txt
+# Exact CPU wheels are required; pip must fail rather than substitute GPU wheels.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1+cpu
+torchvision==0.20.1+cpu
+transformers==4.46.3
+timm==0.9.12
+safetensors==0.4.5
+tokenizers==0.20.3
+huggingface-hub==0.36.2
+numpy==1.26.4
+Pillow==12.2.0
+sympy==1.13.1
+# The downloader shares this pin with the dataset builder's requirements.txt.
+requests==2.33.1

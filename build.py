@@ -2,7 +2,7 @@
 """Build the three frozen real-data rectangle relations."""
 import argparse,json,pathlib,shutil
 from vosma_dataset.common import sha256
-from vosma_dataset import doc,mot,coco
+from vosma_dataset import doc_prediction,mot,coco
 SOURCES={"doclaynet":["doclaynet"],"mot20":["mot20"],"coco_sama":["coco2017","sama_train","sama_val"]}
 def verify_sources(raw,names):
  lock_path=pathlib.Path(__file__).with_name("sources.lock.json")
@@ -23,11 +23,19 @@ def verify_sources(raw,names):
    if sha256(f)!=member["sha256"]:raise RuntimeError(f"Source checksum mismatch: {member['path']}")
 def main():
  ap=argparse.ArgumentParser();ap.add_argument("--raw-root",type=pathlib.Path,required=True);ap.add_argument("--output-root",type=pathlib.Path,required=True)
- ap.add_argument("--datasets",nargs="+",choices=list(SOURCES),default=list(SOURCES));args=ap.parse_args()
+ ap.add_argument("--datasets",nargs="+",choices=list(SOURCES),default=list(SOURCES))
+ ap.add_argument("--doc-pages",type=pathlib.Path)
+ ap.add_argument("--doc-predictions",type=pathlib.Path)
+ ap.add_argument("--doc-protocol",type=pathlib.Path)
+ args=ap.parse_args()
+ if "doclaynet" in args.datasets and not all((args.doc_pages,args.doc_predictions,args.doc_protocol)):
+  ap.error("DocLayNet requires --doc-pages, --doc-predictions and --doc-protocol from a completed fixed-model run")
  for name in args.datasets:
   verify_sources(args.raw_root,SOURCES[name])
-  {"doclaynet":doc.build,"mot20":mot.build,"coco_sama":coco.build}[name](args.raw_root,args.output_root)
+  if name=="doclaynet":
+   doc_prediction.build(args.raw_root,args.output_root,args.doc_pages,args.doc_predictions,args.doc_protocol)
+  else:
+   {"mot20":mot.build,"coco_sama":coco.build}[name](args.raw_root,args.output_root)
   target=args.output_root/name/"sources";target.mkdir(exist_ok=True)
   for source in SOURCES[name]:shutil.copyfile(args.raw_root/source/"source-manifest.json",target/(source+".json"))
 if __name__=="__main__":main()
-

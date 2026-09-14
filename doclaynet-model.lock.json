@@ -1,0 +1,27 @@
+{
+  "schema_version": "doclaynet-model-lock-v1",
+  "model_id": "Aryn/deformable-detr-DocLayNet",
+  "revision": "d5503a90ae08dd43565de6984a5dd7924cad2400",
+  "license": "Apache-2.0",
+  "license_evidence_url": "https://huggingface.co/Aryn/deformable-detr-DocLayNet/blob/d5503a90ae08dd43565de6984a5dd7924cad2400/README.md",
+  "training_data": "DocLayNet; exact training split list is not published",
+  "training_overlap_status": "unknown",
+  "files": {
+    "README.md": {
+      "size": 4551,
+      "sha256": "8e33e46f2a9998656103c130aab591d60c0a89a4cfe027bcd2d8dcaa26057c8e"
+    },
+    "config.json": {
+      "size": 1822,
+      "sha256": "01d2bd3356abd64b84b837294782b28a4052f1a36b19e3a9c7d84f75ee15d5e6"
+    },
+    "preprocessor_config.json": {
+      "size": 300,
+      "sha256": "6eb5442e705395d5b9699782b18668733f81ba9f8f81729be33ca3526fd43641"
+    },
+    "model.safetensors": {
+      "size": 164653696,
+      "sha256": "e3861d34685d3b36e5f38370597daf98fb2f98a852cfa5c125035057ded06809"
+    }
+  }
+}

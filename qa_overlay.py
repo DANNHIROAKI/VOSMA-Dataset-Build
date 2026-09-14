@@ -32,6 +32,6 @@ def main():
    ax.set_xlabel("Local x (pixels)");ax.set_ylabel("Local y (pixels)")
   fig.suptitle(name+" — local rectangle overlay",fontsize=13)
   fig.legend(handles=[Patch(facecolor="none",edgecolor="#1570b8",label="R1"),Patch(facecolor="none",edgecolor="#d96917",label="R2")],loc="lower center",ncol=2,frameon=False)
-  fig.tight_layout(rect=(0,.05,1,.94));fig.savefig(args.output_root/(name+".png"),dpi=140);plt.close(fig)
+  fig.tight_layout(rect=(0,.12,1,.94));fig.savefig(args.output_root/(name+".png"),dpi=140);plt.close(fig)
   (args.output_root/(name+".json")).write_text(json.dumps({"groups":[g["group_id"] for g in chosen],"selection":"First, middle, last positive-overlap group in published order","image_background":bool(args.image_root)},indent=2)+"\n")
 if __name__=="__main__":main()
