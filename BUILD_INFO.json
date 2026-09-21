@@ -1,97 +1,146 @@
 {
-  "release": "v0.2.0",
+  "release": "v0.3.0",
   "available_datasets": [
     "doclaynet",
     "mot20",
-    "coco_sama"
+    "coco_sama",
+    "kenya_buildings"
   ],
   "pending_datasets": {},
-  "environment": {
-    "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:27:36) [GCC 11.2.0]",
-    "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.31",
-    "machine": "x86_64",
-    "packages": {
-      "numpy": "1.26.4",
-      "pyarrow": "16.1.0",
-      "requests": "2.33.1",
-      "matplotlib": "3.9.2",
-      "huggingface_hub": "1.11.0"
-    }
-  },
-  "sources_lock_sha256": "4d153e0c2e6abee9d20ecd59710a3b37b9672e068fb995e831259244a897cb19",
   "builder_repository": "https://github.com/DANNHIROAKI/VOSMA-Dataset-Build",
-  "builder_version_tag": "v0.2.0",
-  "doclaynet": {
-    "selection": "All 4,999 official test pages",
-    "relation_semantics": "Original page GT versus fixed model predictions",
-    "model": {
-      "model_id": "Aryn/deformable-detr-DocLayNet",
-      "revision": "d5503a90ae08dd43565de6984a5dd7924cad2400",
-      "url": "https://huggingface.co/Aryn/deformable-detr-DocLayNet/tree/d5503a90ae08dd43565de6984a5dd7924cad2400",
-      "license": "Apache-2.0",
-      "files": {
-        "README.md": {
-          "sha256": "8e33e46f2a9998656103c130aab591d60c0a89a4cfe027bcd2d8dcaa26057c8e",
-          "size": 4551
-        },
-        "config.json": {
-          "sha256": "01d2bd3356abd64b84b837294782b28a4052f1a36b19e3a9c7d84f75ee15d5e6",
-          "size": 1822
-        },
-        "preprocessor_config.json": {
-          "sha256": "6eb5442e705395d5b9699782b18668733f81ba9f8f81729be33ca3526fd43641",
-          "size": 300
-        },
-        "model.safetensors": {
-          "sha256": "e3861d34685d3b36e5f38370597daf98fb2f98a852cfa5c125035057ded06809",
-          "size": 164653696
+  "builder_version_tag": "v0.3.0",
+  "preserved_original_datasets": {
+    "names": [
+      "doclaynet",
+      "mot20",
+      "coco_sama"
+    ],
+    "huggingface_revision": "14b11a0b5eb6c19b3c686def1d1db67a98aba6dd",
+    "files_changed": false,
+    "build_info": {
+      "release": "v0.2.0",
+      "available_datasets": [
+        "doclaynet",
+        "mot20",
+        "coco_sama"
+      ],
+      "pending_datasets": {},
+      "environment": {
+        "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:27:36) [GCC 11.2.0]",
+        "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.31",
+        "machine": "x86_64",
+        "packages": {
+          "numpy": "1.26.4",
+          "pyarrow": "16.1.0",
+          "requests": "2.33.1",
+          "matplotlib": "3.9.2",
+          "huggingface_hub": "1.11.0"
         }
       },
-      "training_data": "DocLayNet; exact training split list is not published",
-      "training_overlap_status": "unknown"
-    },
-    "inference_environment": {
-      "python": "3.12.7",
-      "torch": "2.5.1+cpu",
-      "torchvision": "0.20.1+cpu",
-      "transformers": "4.46.3",
-      "timm": "0.9.12",
-      "safetensors": "0.4.5",
-      "Pillow": "12.2.0",
-      "numpy": "1.26.4",
-      "tokenizers": "0.20.3",
-      "huggingface-hub": "0.36.2"
-    },
-    "numerical_protocol": {
-      "device": "cpu",
-      "dtype": "float32",
-      "batch_size": 1,
-      "threads_per_worker": 4,
-      "interop_threads": 1,
-      "seed": 20260915,
-      "deterministic_algorithms": true,
-      "configuration_overrides": {
-        "use_pretrained_backbone": false,
-        "disable_custom_kernels": true,
-        "use_timm_backbone": true
-      }
-    },
-    "initial_workers": 8,
-    "resumed_workers": 16,
-    "training_overlap_status": "unknown",
-    "inference_cost_is_dataset_construction": true,
-    "algorithm_preprocessing_remains_timed": true
+      "sources_lock_sha256": "4d153e0c2e6abee9d20ecd59710a3b37b9672e068fb995e831259244a897cb19",
+      "builder_repository": "https://github.com/DANNHIROAKI/VOSMA-Dataset-Build",
+      "builder_version_tag": "v0.2.0",
+      "doclaynet": {
+        "selection": "All 4,999 official test pages",
+        "relation_semantics": "Original page GT versus fixed model predictions",
+        "model": {
+          "model_id": "Aryn/deformable-detr-DocLayNet",
+          "revision": "d5503a90ae08dd43565de6984a5dd7924cad2400",
+          "url": "https://huggingface.co/Aryn/deformable-detr-DocLayNet/tree/d5503a90ae08dd43565de6984a5dd7924cad2400",
+          "license": "Apache-2.0",
+          "files": {
+            "README.md": {
+              "sha256": "8e33e46f2a9998656103c130aab591d60c0a89a4cfe027bcd2d8dcaa26057c8e",
+              "size": 4551
+            },
+            "config.json": {
+              "sha256": "01d2bd3356abd64b84b837294782b28a4052f1a36b19e3a9c7d84f75ee15d5e6",
+              "size": 1822
+            },
+            "preprocessor_config.json": {
+              "sha256": "6eb5442e705395d5b9699782b18668733f81ba9f8f81729be33ca3526fd43641",
+              "size": 300
+            },
+            "model.safetensors": {
+              "sha256": "e3861d34685d3b36e5f38370597daf98fb2f98a852cfa5c125035057ded06809",
+              "size": 164653696
+            }
+          },
+          "training_data": "DocLayNet; exact training split list is not published",
+          "training_overlap_status": "unknown"
+        },
+        "inference_environment": {
+          "python": "3.12.7",
+          "torch": "2.5.1+cpu",
+          "torchvision": "0.20.1+cpu",
+          "transformers": "4.46.3",
+          "timm": "0.9.12",
+          "safetensors": "0.4.5",
+          "Pillow": "12.2.0",
+          "numpy": "1.26.4",
+          "tokenizers": "0.20.3",
+          "huggingface-hub": "0.36.2"
+        },
+        "numerical_protocol": {
+          "device": "cpu",
+          "dtype": "float32",
+          "batch_size": 1,
+          "threads_per_worker": 4,
+          "interop_threads": 1,
+          "seed": 20260915,
+          "deterministic_algorithms": true,
+          "configuration_overrides": {
+            "use_pretrained_backbone": false,
+            "disable_custom_kernels": true,
+            "use_timm_backbone": true
+          }
+        },
+        "initial_workers": 8,
+        "resumed_workers": 16,
+        "training_overlap_status": "unknown",
+        "inference_cost_is_dataset_construction": true,
+        "algorithm_preprocessing_remains_timed": true
+      },
+      "model_lock_sha256": "037c5e746f35a80f8e4b342432b02bb7a5d01ede6db58615f91fc1f3f22f1aa9",
+      "validation": {
+        "unit_tests_passed": 26,
+        "record_invariants_checked": "every published rectangle",
+        "doclaynet_all_png_bytes_and_prediction_provenance": true,
+        "doclaynet_independent_full_source_record_audit": true,
+        "doclaynet_independent_raw_tensor_postprocess_pilot": true,
+        "doclaynet_pilot_production_exact_repeat": true,
+        "overlap_counter_randomized_bruteforce_cases": 120,
+        "coco_independent_full_audit": true,
+        "mot20_and_coco_sama_files_unchanged_from_v010": true
+      },
+      "builder_commit": "4c3c3e9d8c074cd43884a8a650eeac0d9102a131"
+    }
   },
-  "model_lock_sha256": "037c5e746f35a80f8e4b342432b02bb7a5d01ede6db58615f91fc1f3f22f1aa9",
-  "validation": {
-    "unit_tests_passed": 26,
-    "record_invariants_checked": "every published rectangle",
-    "doclaynet_all_png_bytes_and_prediction_provenance": true,
-    "doclaynet_independent_full_source_record_audit": true,
-    "doclaynet_independent_raw_tensor_postprocess_pilot": true,
-    "doclaynet_pilot_production_exact_repeat": true,
-    "overlap_counter_randomized_bruteforce_cases": 120,
-    "coco_independent_full_audit": true,
-    "mot20_and_coco_sama_files_unchanged_from_v010": true
+  "kenya_buildings": {
+    "r1_count": 12798990,
+    "r2_count": 25560434,
+    "total_records": 38359424,
+    "groups": 1,
+    "source_lock_sha256": "fd20a649bb73f3ad21c0fd34e88bd00081207c7cdd0a48973439b6c079892709",
+    "build_protocol_sha256": "d626f297e5df999747cbedbb162eb034488afcb4afca857680d8f457a1996d77",
+    "dependencies": {
+      "geos": "3.13.1",
+      "numpy": "1.26.4",
+      "proj": "9.5.1",
+      "pyarrow": "16.1.0",
+      "pyproj": "3.7.2",
+      "python": "3.12.7",
+      "shapely": "2.1.2"
+    },
+    "projection": "+proj=laea +lat_0=0 +lon_0=37.5 +datum=WGS84 +x_0=0 +y_0=0 +units=m +no_defs",
+    "coordinate_offset": {
+      "dx": 399224818,
+      "dy": 516729472
+    },
+    "builder_version_tag": "v0.3.0",
+    "construction_workers": 6,
+    "full_record_validation_passed": true,
+    "national_pairs_enumerated": false,
+    "specification_sha256": "bbfb4f576294f974c5c8a141cb2c1a5c3a9a14050844baee38136df54528b62c"
   }
 }

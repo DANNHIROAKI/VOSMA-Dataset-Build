@@ -1,0 +1,135 @@
+{
+  "boundary_bounds": [
+    33.91181945760195,
+    -4.702270507977516,
+    41.90625762938612,
+    5.430648327058691
+  ],
+  "boundary_valid": true,
+  "boundary_features": 1,
+  "boundary_parts": 114,
+  "s2_level_4_covering": [
+    "171",
+    "177",
+    "179",
+    "17b",
+    "17d",
+    "17f",
+    "181",
+    "183",
+    "185",
+    "187",
+    "19b",
+    "19d"
+  ],
+  "tiles_intersect_boundary": [
+    {
+      "tile_id": "171",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/171_buildings.csv.gz",
+      "size_mb": 145.2
+    },
+    {
+      "tile_id": "177",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/177_buildings.csv.gz",
+      "size_mb": 1910.4
+    },
+    {
+      "tile_id": "179",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/179_buildings.csv.gz",
+      "size_mb": 647.1
+    },
+    {
+      "tile_id": "17b",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/17b_buildings.csv.gz",
+      "size_mb": 1154.2
+    },
+    {
+      "tile_id": "17d",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/17d_buildings.csv.gz",
+      "size_mb": 115.6
+    },
+    {
+      "tile_id": "17f",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/17f_buildings.csv.gz",
+      "size_mb": 100.6
+    },
+    {
+      "tile_id": "181",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/181_buildings.csv.gz",
+      "size_mb": 40.8
+    },
+    {
+      "tile_id": "183",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/183_buildings.csv.gz",
+      "size_mb": 1755.4
+    },
+    {
+      "tile_id": "185",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/185_buildings.csv.gz",
+      "size_mb": 870.7
+    },
+    {
+      "tile_id": "19d",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/19d_buildings.csv.gz",
+      "size_mb": 2137.4
+    }
+  ],
+  "tiles_intersect_bbox": [
+    {
+      "tile_id": "171",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/171_buildings.csv.gz",
+      "size_mb": 145.2
+    },
+    {
+      "tile_id": "177",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/177_buildings.csv.gz",
+      "size_mb": 1910.4
+    },
+    {
+      "tile_id": "179",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/179_buildings.csv.gz",
+      "size_mb": 647.1
+    },
+    {
+      "tile_id": "17b",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/17b_buildings.csv.gz",
+      "size_mb": 1154.2
+    },
+    {
+      "tile_id": "17d",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/17d_buildings.csv.gz",
+      "size_mb": 115.6
+    },
+    {
+      "tile_id": "17f",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/17f_buildings.csv.gz",
+      "size_mb": 100.6
+    },
+    {
+      "tile_id": "181",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/181_buildings.csv.gz",
+      "size_mb": 40.8
+    },
+    {
+      "tile_id": "183",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/183_buildings.csv.gz",
+      "size_mb": 1755.4
+    },
+    {
+      "tile_id": "185",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/185_buildings.csv.gz",
+      "size_mb": 870.7
+    },
+    {
+      "tile_id": "19b",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/19b_buildings.csv.gz",
+      "size_mb": 408.4
+    },
+    {
+      "tile_id": "19d",
+      "tile_url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/19d_buildings.csv.gz",
+      "size_mb": 2137.4
+    }
+  ],
+  "boundary_uncovered_area_degrees2": 0.0
+}

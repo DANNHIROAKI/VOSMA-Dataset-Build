@@ -1,0 +1,35 @@
+{
+  "schema_version": "vosma-kenya-server-code-validation-v1",
+  "recorded_at_utc": "2026-09-21T18:06:17.396498+00:00",
+  "scope": "Dataset construction, full-record validation, local original-footprint QA and publication checks; not sampling-algorithm performance",
+  "command": "python -m pytest -q",
+  "passed": 71,
+  "failed": 0,
+  "elapsed_seconds": 3.83,
+  "test_output_sha256": "29bc0527457ac9cf97e865c56697333d82d49421b1a9bdb2b67cbf2ca5843817",
+  "environment": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "python": "3.12.7",
+    "numpy": "1.26.4",
+    "pyarrow": "16.1.0",
+    "shapely": "2.1.2",
+    "geos": "3.13.1",
+    "pyproj": "3.7.2",
+    "proj": "9.5.1"
+  },
+  "files_sha256": {
+    "build_kenya.py": "e9ba83c7a5d5e9824c74be272703ed34124760a36bf92c393426e2813f25d60f",
+    "vosma_dataset/kenya.py": "0a0e7de2e1834923671cd9a447d7f3d95c3348904c3739362582a70161761a43",
+    "validate_kenya.py": "c04f3a64be413ff1602f464c213642e80968ebd49a1888efd3b85cc6158ae819",
+    "qa_kenya_local_overlay.py": "073f3fecceb5d5d75547ac73bb94335b75557acf88beefa755a660952b081ff0",
+    "write_kenya_release_docs.py": "f40364cae377594a77bd243dda852159047a7132fdd0ea109c29372d0369979f",
+    "fetch_kenya_sources.py": "fc79b07283328b970cb9d15fbb5ff5523cf613895173c0b2049206ec014f8b1a",
+    "requirements-kenya.txt": "28fc045ed87bad0ec4e6dede26d61d8e092986526295b9c8eb8dfbeb7926038e",
+    "tests/test_kenya_builder.py": "0d26d078cd2568d1ee028562f80b6fdb2b3477dc771c671f82ef915c9861bd79",
+    "tests/test_kenya_validation.py": "fdce19a9b1b7835fa97160021c2e7f3abaeb0afca83ffa2db791e5a83e14275c",
+    "tests/test_kenya_local_overlay.py": "04c08de3249d8572c416dd51ca325b08f36e9a18cc5b9e5d91715c5475d40019",
+    "KENYA_BUILD.md": "0e53f0199b16ec46adb2bc875c874b3c29298b4eb4b40112138bd6a1615200d6",
+    "kenya-sources.lock.json": "fd20a649bb73f3ad21c0fd34e88bd00081207c7cdd0a48973439b6c079892709"
+  }
+}

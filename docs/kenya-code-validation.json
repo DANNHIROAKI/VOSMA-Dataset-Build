@@ -1,0 +1,75 @@
+{
+  "schema_version": "vosma-kenya-code-validation-v1",
+  "recorded_at_utc": "2026-09-21T17:31:04.412287+00:00",
+  "scope": "Local builder correctness, resume, reproducibility and construction microbenchmark; not sampling-algorithm benchmark results",
+  "files_sha256": {
+    "build_kenya.py": "e9ba83c7a5d5e9824c74be272703ed34124760a36bf92c393426e2813f25d60f",
+    "vosma_dataset/kenya.py": "0a0e7de2e1834923671cd9a447d7f3d95c3348904c3739362582a70161761a43",
+    "tests/test_kenya_builder.py": "0d26d078cd2568d1ee028562f80b6fdb2b3477dc771c671f82ef915c9861bd79",
+    "requirements-kenya.txt": "28fc045ed87bad0ec4e6dede26d61d8e092986526295b9c8eb8dfbeb7926038e",
+    "KENYA_BUILD.md": "c3960cc1f5b52ab30eb5a29525a518c0188576910ee7ffaf1fad3c1b493b8fd8"
+  },
+  "environment": {
+    "os": "Darwin",
+    "machine": "arm64",
+    "python": "3.14.6",
+    "numpy": "2.5.3",
+    "pyarrow": "25.0.1",
+    "shapely": "2.1.2",
+    "geos": "3.13.1",
+    "pyproj": "3.8.0",
+    "proj": "9.8.1"
+  },
+  "tests": {
+    "command": "PYTHONPATH=. python -m pytest -q tests/test_kenya_builder.py",
+    "passed": 6,
+    "failed": 0,
+    "elapsed_seconds": 2.83,
+    "coverage": [
+      "Full Polygon and MultiPolygon projected bounds; multipart stays one record",
+      "Country filtering by full projected geometry centroid; invalid geometry exclusions",
+      "Duplicates, repeated annotation ids and zero confidence retained",
+      "Source identity and physical CSV line retained in row-aligned metadata",
+      "One national group and one shared integer translation of both relations",
+      "Q1000 nearest ties-to-even quantization",
+      "Completed-checkpoint resume and existing-output checksum verification",
+      "Corrupted checkpoint rejection and changed source SHA-256 rejection",
+      "Existing unrelated output cannot be overwritten",
+      "Serial and two-worker independent rebuilds have byte-identical full SHA256SUMS including deterministic gzip exclusions",
+      "Explicit spawn worker processes avoid fork-inherited Arrow/geometry thread state"
+    ]
+  },
+  "construction_microbenchmark": {
+    "hardware_context": "Local macOS ARM64; performance is not a prediction for the server or complex real polygons",
+    "workers": 1,
+    "batch_size": 8192,
+    "shard_records": 250000,
+    "qa_samples_per_source": 4,
+    "input_geometry": "Five-vertex rectangles, repeated/varied positions; one third outside fixed fixture country; Microsoft GeoJSONL ZIP plus Google-style WKT CSV GZIP",
+    "timing_scope": "Complete source hash verification, streamed decode, projection/filter/quantization, checkpoint writes, metadata and memmap assembly, final hashes",
+    "results": [
+      {
+        "input_records": 20000,
+        "retained_records": 13332,
+        "elapsed_seconds": 1.2891314160078764,
+        "input_records_per_second": 15514.32208667685,
+        "peak_rss_bytes_macos": 161267712,
+        "output_bytes": 1099119
+      },
+      {
+        "input_records": 200000,
+        "retained_records": 133332,
+        "elapsed_seconds": 9.03541124984622,
+        "input_records_per_second": 22135.129710161666,
+        "peak_rss_bytes_macos": 231899136,
+        "output_bytes": 10433857
+      }
+    ],
+    "measured_builder_sha256": "d97f87fce83c370de3b2aeffb3c4292b5ec459e62e95136a105a1cb8cd9c9049",
+    "subsequent_change": "ProcessPoolExecutor now explicitly uses spawn; the microbenchmark used workers=1 and did not execute the changed branch."
+  },
+  "limitations": [
+    "Small fixtures do not substitute for full real-source validation.",
+    "Independent whole-dataset validation and source provenance review are required before dataset publication."
+  ]
+}

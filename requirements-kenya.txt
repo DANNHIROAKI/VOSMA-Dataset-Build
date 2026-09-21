@@ -1,0 +1,3 @@
+# Install together with requirements.txt; no raster downloads are required.
+shapely==2.1.2
+pyproj==3.7.2

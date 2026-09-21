@@ -12,7 +12,7 @@ def load_local(directory):
  return r1,r2,groups,info
 def download(dataset,revision,local_dir):
  if not revision:raise ValueError("Pin a Hugging Face commit revision")
- if dataset not in ("doclaynet","mot20","coco_sama"):raise ValueError("Unknown dataset")
+ if dataset not in ("doclaynet","mot20","coco_sama","kenya_buildings"):raise ValueError("Unknown dataset")
  from huggingface_hub import snapshot_download
  root=snapshot_download(repo_id="DannHiroaki/VOSMA-Dataset",repo_type="dataset",revision=revision,allow_patterns=[f"{dataset}/*"],local_dir=local_dir)
  return load_local(pathlib.Path(root)/dataset)

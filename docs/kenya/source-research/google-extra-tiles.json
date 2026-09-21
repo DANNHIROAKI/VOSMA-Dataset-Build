@@ -1,0 +1,90 @@
+{
+  "19b": {
+    "tile_id": "19b",
+    "url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/19b_buildings.csv.gz",
+    "head_status": 200,
+    "headers": {
+      "Content-Type": "application/octet-stream",
+      "X-GUploader-UploadID": "AJjja9aZK3NPArCpJ1wG4Wyhpnig-2xS8qYhHPiOLnHXU2_jm5e3G0TMdWyzZtbBYMeF7jcg",
+      "Expires": "Mon, 21 Sep 2026 18:22:38 GMT",
+      "Date": "Mon, 21 Sep 2026 17:22:38 GMT",
+      "Cache-Control": "public, max-age=3600",
+      "Last-Modified": "Fri, 23 Jun 2023 09:41:59 GMT",
+      "ETag": "\"f15a5b7048fa967d688bc8c52a527cf4\"",
+      "x-goog-generation": "1687513319506190",
+      "x-goog-metageneration": "1",
+      "x-goog-stored-content-encoding": "identity",
+      "x-goog-stored-content-length": "408409100",
+      "x-goog-hash": "crc32c=FG/2mQ==",
+      "x-goog-storage-class": "STANDARD",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "408409100",
+      "Server": "UploadServer",
+      "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Connection": "close"
+    },
+    "object_metadata": {
+      "kind": "storage#object",
+      "id": "open-buildings-data/v3/polygons_s2_level_4_gzip/19b_buildings.csv.gz/1687513319506190",
+      "selfLink": "https://www.googleapis.com/storage/v1/b/open-buildings-data/o/v3%2Fpolygons_s2_level_4_gzip%2F19b_buildings.csv.gz",
+      "mediaLink": "https://storage.googleapis.com/download/storage/v1/b/open-buildings-data/o/v3%2Fpolygons_s2_level_4_gzip%2F19b_buildings.csv.gz?generation=1687513319506190&alt=media",
+      "name": "v3/polygons_s2_level_4_gzip/19b_buildings.csv.gz",
+      "bucket": "open-buildings-data",
+      "generation": "1687513319506190",
+      "metageneration": "1",
+      "contentType": "application/octet-stream",
+      "storageClass": "STANDARD",
+      "size": "408409100",
+      "md5Hash": "8VpbcEj6ln1oi8jFKlJ89A==",
+      "crc32c": "FG/2mQ==",
+      "etag": "CI6C2v+M2f8CEAE=",
+      "timeCreated": "2023-06-23T09:41:59.537Z",
+      "updated": "2023-06-23T09:41:59.537Z",
+      "timeStorageClassUpdated": "2023-06-23T09:41:59.537Z",
+      "timeFinalized": "2023-06-23T09:41:59.537Z"
+    },
+    "s2_cell_vertices": [
+      [
+        28.673146489434995,
+        -9.341889685888818
+      ],
+      [
+        34.5085229876684,
+        -8.78319498809753
+      ],
+      [
+        34.5085229876684,
+        -4.173022773894666
+      ],
+      [
+        28.673146489434995,
+        -4.4420385234003374
+      ]
+    ]
+  },
+  "187": {
+    "tile_id": "187",
+    "url": "https://storage.googleapis.com/open-buildings-data/v3/polygons_s2_level_4_gzip/187_buildings.csv.gz",
+    "head_status": 404,
+    "metadata_status": 404,
+    "metadata_error": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"No such object: open-buildings-data/v3/polygons_s2_level_4_gzip/187_buildings.csv.gz\",\n    \"errors\": [\n      {\n        \"message\": \"No such object: open-buildings-data/v3/polygons_s2_level_4_gzip/187_buildings.csv.gz\",\n        \"domain\": \"global\",\n        \"reason\": \"notFound\"\n      }\n    ]\n  }\n}\n",
+    "s2_cell_vertices": [
+      [
+        39.98123465891889,
+        -8.17589607435871
+      ],
+      [
+        45.0,
+        -7.552372279897661
+      ],
+      [
+        45.0,
+        -3.5825217661726794
+      ],
+      [
+        39.98123465891889,
+        -3.881312186924027
+      ]
+    ]
+  }
+}

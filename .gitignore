@@ -4,3 +4,15 @@ __pycache__/
 work/
 outputs/
 *.so
+
+# Local dataset construction outputs and caches
+raw/
+data/
+data-staging/
+runtime/
+logs/
+.pytest_cache/
+*.part
+.env
+.env.*
+!.env.example
