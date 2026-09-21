@@ -202,7 +202,7 @@ language:
 This fourth VOSMA real dataset compares Microsoft Kenya building footprints (R1)
 with Google Open Buildings V3 (R2). Both sides are machine-generated detections;
 neither side is human ground truth. The intended workload samples rectangle
-pairs with positive intersection area, weighted by rectangle area or rectangle
+pairs with positive intersection area, weighted by rectangle intersection area or rectangle
 IoU. Rectangle overlap is not proof of a matching real-world building, nor the
 same quantity as original-polygon overlap.
 
